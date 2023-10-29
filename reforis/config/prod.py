@@ -42,14 +42,14 @@ LOGGING = {
     },
     'handlers': {
         'console': {
-            'level': 'DEBUG',
+            'level': 'WARNING',
             'class': 'logging.StreamHandler',
             'formatter': 'short'
         },
     },
     'loggers': {
         '': {
-            'level': 'DEBUG',
+            'level': 'WARNING',
             'handlers': ['console'],
         },
     }
