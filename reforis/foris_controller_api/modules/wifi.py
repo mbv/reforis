@@ -3,7 +3,7 @@
 #  This is free software, licensed under the GNU General Public License v3.
 #  See /LICENSE for more information.
 
-from flask import current_app, jsonify
+from flask import current_app, jsonify, request
 
 from .utils import _foris_controller_settings_call
 
@@ -34,6 +34,18 @@ def wifi_reset():
     return jsonify(current_app.backend.perform('wifi', 'reset'))
 
 
+def wifi_scan():
+    """
+    .. http:get:: /api/wifi
+        Reset WiFI router settings.
+        See ``reset`` action in the `foris-controller wifi module JSON schema
+        <https://gitlab.nic.cz/turris/foris-controller/foris-controller/blob/master/foris_controller_modules/wifi/schema/wifi.json>`_.
+
+    """
+    data = request.json
+    return jsonify(current_app.backend.perform('wifi', 'scan_device', {**data}))
+
+
 # pylint: disable=invalid-name
 views = [
     {
@@ -43,6 +55,10 @@ views = [
     }, {
         'rule': '/wifi-reset',
         'view_func': wifi_reset,
+        'methods': ['POST']
+    }, {
+        'rule': '/wifi-scan',
+        'view_func': wifi_scan,
         'methods': ['POST']
     }
 ]

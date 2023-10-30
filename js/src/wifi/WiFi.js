@@ -20,6 +20,8 @@ import PropTypes from "prop-types";
 
 import API_URLs from "common/API";
 
+import ScanWiFi from "./ScanWiFi";
+
 WiFi.propTypes = {
     ws: PropTypes.object.isRequired,
 };
@@ -43,6 +45,7 @@ export default function WiFi({ ws }) {
                     "If you want to use your router as a Wi-Fi access point, enable Wi-Fi here and fill in an SSID (the name of the access point) and a corresponding password. You can then set up your mobile devices using the QR code available within the form."
                 )}
             </p>
+
             <WiFiSettingsWithErrorAndSpinner
                 ws={ws}
                 apiState={getWiFiResponse.state}
@@ -70,11 +73,14 @@ function WiFiSettingsWrapper({ ws, wifiDetails }) {
         );
     } else {
         componentContent = (
-            <WiFiSettings
-                ws={ws}
-                endpoint={API_URLs.wifi}
-                resetEndpoint={API_URLs.wifiReset}
-            />
+            <>
+                <ScanWiFi endpoint={API_URLs.wifiScan} ws={ws} />
+                <WiFiSettings
+                    ws={ws}
+                    endpoint={API_URLs.wifi}
+                    resetEndpoint={API_URLs.wifiReset}
+                />
+            </>
         );
     }
 
