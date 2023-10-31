@@ -20,7 +20,7 @@ import PropTypes from "prop-types";
 
 import API_URLs from "common/API";
 
-import ScanWiFi from "./ScanWiFi";
+import ScanWifi from "./scanWifi/ScanWifi";
 
 WiFi.propTypes = {
     ws: PropTypes.object.isRequired,
@@ -74,7 +74,7 @@ function WiFiSettingsWrapper({ ws, wifiDetails }) {
     } else {
         componentContent = (
             <>
-                <ScanWiFi endpoint={API_URLs.wifiScan} ws={ws} />
+                <ScanWifi ws={ws} />
                 <WiFiSettings
                     ws={ws}
                     endpoint={API_URLs.wifi}

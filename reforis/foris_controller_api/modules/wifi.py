@@ -37,13 +37,13 @@ def wifi_reset():
 def wifi_scan():
     """
     .. http:get:: /api/wifi
-        Reset WiFI router settings.
+        Trigger wifi scan
         See ``reset`` action in the `foris-controller wifi module JSON schema
         <https://gitlab.nic.cz/turris/foris-controller/foris-controller/blob/master/foris_controller_modules/wifi/schema/wifi.json>`_.
 
     """
     data = request.json
-    return jsonify(current_app.backend.perform('wifi', 'scan_device', {**data}))
+    return jsonify(current_app.backend.perform('wifi', 'scan_trigger', {**data}))
 
 
 # pylint: disable=invalid-name

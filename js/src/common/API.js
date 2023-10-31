@@ -23,7 +23,7 @@ const API_URLs = new Proxy(
         // Network
         wifi: "/wifi",
         wifiReset: "/wifi-reset",
-        wifiScan: "/wifi-scan",
+        wifiScanTrigger: "/wifi-scan",
         wan: "/wan",
         lan: "/lan",
         lanClients: "/lan/clients",
