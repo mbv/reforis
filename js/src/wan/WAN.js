@@ -29,7 +29,7 @@ export default function WAN({ ws }) {
             <h1>{_("WAN")}</h1>
             <p>
                 {_(
-                    "Here you can specify your WAN port settings if instructed to do so by your ISP (internet service provider). Usually, it can be left untouched if your router is connected to the Internet via a cable or DSL modem."
+                    "1234567Here you can specify your WAN port settings if instructed to do so by your ISP (internet service provider). Usually, it can be left untouched if your router is connected to the Internet via a cable or DSL modem."
                 )}
             </p>
             <ForisForm

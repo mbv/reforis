@@ -27,13 +27,17 @@ export default function useScanWifi(ws) {
     const updateResults = useCallback(
         (data) => {
             if (data && data.scan_id === id) {
-                // eslint-disable-next-line no-console
-                console.log(data.data);
-                setResults((prevTestResults) => ({
-                    ...prevTestResults,
-                    ...filterResults(data.data),
-                }));
-                if (data.passed) setState(SCAN_STATES.FINISHED);
+                if (data.data) {
+                    // eslint-disable-next-line no-console
+                    console.log(data.data);
+                    setResults((prevResults) =>
+                        filterResults(data.data.results, prevResults)
+                    );
+                } else {
+                    // eslint-disable-next-line no-console
+                    console.log(data.all_data);
+                }
+                if (data.success) setState(SCAN_STATES.FINISHED);
             }
         },
         [id]
@@ -49,21 +53,19 @@ export default function useScanWifi(ws) {
         updateResults(wsFinishedData);
     }, [wsFinishedData, id, updateResults]);
 
-    const [triggerTestData, triggerTest] = useAPIPost(API_URLs.wifiScanTrigger);
+    const [triggerScanData, triggerScan] = useAPIPost(API_URLs.wifiScanTrigger);
     useEffect(() => {
-        if (triggerTestData.data) {
+        if (triggerScanData.data) {
             setState(SCAN_STATES.RUNNING);
             setResults(initialResults);
-            setId(triggerTestData.data.scan_id);
+            setId(triggerScanData.data.scan_id);
         }
-    }, [initialResults, triggerTestData]);
+    }, [initialResults, triggerScanData]);
 
-    return [state, results, triggerTest];
+    return [state, results, triggerScan];
 }
 
-function filterResults(results) {
-    return Object.keys(results).reduce((res, test) => {
-        res[test] = results[test];
-        return res;
-    }, {});
+// eslint-disable-next-line no-unused-vars
+function filterResults(results, prevResults) {
+    return results.concat(prevResults); // TODO add merge
 }

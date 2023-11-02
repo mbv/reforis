@@ -68,7 +68,7 @@
     },
     "scripts": {
         "watch": "webpack --watch --mode=development --env.lighttpd",
-        "build": "webpack --mode=production --env.lighttpd",
+        "build": "webpack --mode=development --env.lighttpd",
         "lint": "eslint src",
         "lint:fix": "eslint --fix src",
         "test": "jest",

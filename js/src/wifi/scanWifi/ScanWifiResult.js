@@ -14,15 +14,20 @@ import { SCAN_STATES } from "./hooks";
 
 ScanWifiResults.propTypes = {
     state: PropTypes.number,
+    scanResults: PropTypes.array,
 };
 
-export default function ScanWifiResults({ state, ...results }) {
+export default function ScanWifiResults({ state, scanResults }) {
     return (
         <table className="table table-borderless table-hover col-sm-12">
             <tbody>
-                {results.map((result) =>
+                {scanResults.map((result) =>
                     result !== undefined ? (
-                        <ScanWifiResultItem result={result} state={state} />
+                        <ScanWifiResultItem
+                            key={result.bssid}
+                            result={result}
+                            state={state}
+                        />
                     ) : null
                 )}
             </tbody>
@@ -31,19 +36,19 @@ export default function ScanWifiResults({ state, ...results }) {
 }
 
 ScanWifiResultItem.propTypes = {
-    result: PropTypes.bool,
+    result: PropTypes.object,
     state: PropTypes.number,
 };
 
 function ScanWifiResultItem({ result, state }) {
     return (
         <tr>
-            <th scope="row">{result}</th>
+            <th scope="row">{result.ssid}</th>
             <td className="text-right">
                 {state === SCAN_STATES.RUNNING ? (
                     <SpinnerElement small className="text-secondary" />
                 ) : (
-                    <ConnectionTestIcon result={result} />
+                    <p>{result.mhz}</p>
                 )}
             </td>
         </tr>

@@ -23,14 +23,14 @@ export default function ScanWifi({ ws }) {
     function onSubmit(e) {
         e.preventDefault();
         const data = {
-            device_name: "radio0",
+            device_names: ["radio0", "radio1"],
         };
-        triggerScan(data);
+        triggerScan({ data });
     }
 
     return (
         <form>
-            <ScanWifiResults state={state} {...scanResults} />
+            <ScanWifiResults state={state} scanResults={scanResults} />
             <ScanWifiButton state={state} onClick={onSubmit} />
         </form>
     );
